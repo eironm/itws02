@@ -1,78 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health and Wellness Tracker</title>
-    <link rel="stylesheet" href="styles.css"> 
-    <script defer src="script.js"></script>
+    <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b); /* More dynamic gradient */
+        color: #333;
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    header {
+        text-align: center;
+        padding: 30px 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+        color: #ff6f61;
+        letter-spacing: -1px;
+    }
+
+    header p {
+        color: #666;
+        margin-top: 10px;
+    }
+
+    .section {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        margin-bottom: 25px;
+        transition: transform 0.3s ease;
+    }
+
+    .section:hover {
+        transform: translateY(-5px);
+    }
+
+    h2 {
+        color: #ff6f61;
+        border-bottom: 2px solid #ff6f61;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        color: #ff6f61;
+    }
+
+    input, button, select {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #ff6f61;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #feb47b;
+        box-shadow: 0 0 10px rgba(254, 180, 123, 0.3);
+    }
+
+    button {
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #feb47b;
+        transform: scale(1.02);
+    }
+
+    #logout {
+        background-color: #ff3d00;
+        float: right;
+        margin-bottom: 20px;
+        width: auto;
+        padding: 10px 20px;
+    }
+
+    #logout:hover {
+        background-color: #ff5722;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background: #f9f9f9;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        transition: background-color 0.3s ease;
+    }
+
+    li:hover {
+        background-color: #fff3e0;
+    }
+
+    #result-container {
+        background-color: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 10px;
+        }
+
+        .section {
+            padding: 15px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+    }
+</style>
 </head>
 <body>
     <header>
         <h1>Health & Wellness Tracker</h1>
         <p>Your personal fitness companion</p>
     </header>
-    <div class="container">
-        <button id="logout" style="display: none;">Logout</button>
-        
-        <div class="section" id="user-registration">
-            <h2>User Registration</h2>
-            <form id="registration-form">
-                <input type="text" id="username" placeholder="Enter your username" required>
-                <button type="submit">Register</button>
-            </form>
-            <p id="registration-message"></p>
-        </div>
 
-        <div class="section" id="bmi-calculator" style="display: none;">
-            <h2>BMI Calculator</h2>
-            <form id="bmi-form">
-                <input type="number" id="height" placeholder="Height (m)" step="0.01" required disabled>
-                <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" required disabled>
-                <button type="submit" disabled>Calculate BMI</button>
-            </form>
-            <div id="result-container">
-                <p id="result"></p>
-                <p id="category"></p>
-            </div>
-            <h3>BMI History</h3>
-            <ul id="bmi-history"></ul>
-        </div>
+    <button id="logout" style="display: none;">Logout</button>
 
-        <div class="section" id="goal-setting" style="display: none;">
-            <h2>Set Your Health Goal</h2>
-            <input type="number" id="goal-weight" placeholder="Target Weight (kg)" disabled>
-            <button id="set-goal" disabled>Set Goal</button>
-            <p id="goal-message"></p>
-        </div>
-
-        <div class="section" id="weight-tracker" style="display: none;">
-            <h2>Weight Tracker</h2>
-            <input type="number" id="new-weight" placeholder="Log New Weight (kg)" step="0.1" disabled>
-            <button id="log-weight" disabled>Log Weight</button>
-            <ul id="weight-history"></ul>
-        </div>
-
-        <div class="section" id="health-tips" style="display: none;">
-            <h2>Health Tips</h2>
-            <p id="tips"></p>
-            <button id="refresh-tips">Get New Tip</button>
-        </div>
-
-        <div class="section" id="diet-exercise-recommendations" style="display: none;">
-            <h2>Diet and Exercise Recommendations</h2>
-            <p id="diet-recommendation"></p>
-            <button id="refresh-recommendation">Get New Recommendation</button>
-        </div>
-
-        <div class="section" id="reminders" style="display: none;">
-            <h2>Reminders</h2>
-            <input type="text" id="reminder-input" placeholder="e.g., Drink water" disabled>
-            <button id="set-reminder" disabled>Set Reminder</button>
-            <ul id="reminder-list"></ul>
-        </div>
+    <div class="section" id="user-registration">
+        <h2>User Registration</h2>
+        <form id="registration-form">
+            <input type="text" id="username" placeholder="Enter your username" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="registration-message"></p>
     </div>
-    <footer>
-        <p>&copy; 2024 blankstuff. All rights reserved.</p>
-    </footer>
+
+    <div class="section" id="bmi-calculator" style="display: none;">
+        <h2>BMI Calculator</h2>
+        <form id="bmi-form">
+            <input type="number" id="height" placeholder="Height (m)" step="0.01" required>
+            <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" required>
+            <button type="submit">Calculate BMI</button>
+        </form>
+        <div id="result-container">
+            <p id="result"></p>
+            <p id="category"></p>
+        </div>
+        <h3>BMI History</h3>
+        <ul id="bmi-history"></ul>
+    </div>
+
+    <div class="section" id="goal-setting" style="display: none;">
+        <h2>Set Your Health Goal</h2>
+        <select id="goal-type">
+            <option value="">Select Goal Type</option>
+            <option value="Weight Loss">Weight Loss</option>
+            <option value="Muscle Gain">Muscle Gain</option>
+            <option value="Maintain Weight">Maintain Weight</option>
+        </select>
+        <input type="number" id="goal-weight" placeholder="Target Weight (kg)">
+        <input type="date" id="goal-deadline">
+        <button id="set-goal">Set Goal</button>
+        <p id="goal-message"></p>
+    </div>
+
+    <div class="section" id="weight-tracker" style="display: none;">
+        <h2>Weight Tracker</h2>
+        <input type="number" id="new-weight" placeholder="Log New Weight (kg)" step="0.1">
+        <button id="log-weight">Log Weight</button>
+        <ul id="weight-history"></ul>
+    </div>
+
+    <div class="section" id="health-tips" style="display: none;">
+        <h2>Health Tips</h2>
+        <p id="tips"></p>
+        <button id="refresh-tips">Get New Tip</button>
+    </div>
+
+    <div class="section" id="diet-exercise-recommendations" style="display: none;">
+        <h2>Diet and Exercise Recommendations</h2>
+        <p id="diet-recommendation"></p>
+        <button id="refresh-recommendation">Get New Recommendation</button>
+    </div>
+
+    <div class="section" id="reminders" style="display: none;">
+        <h2>Reminders</h2>
+        <input type="text" id="reminder-input" placeholder="e.g., Drink water">
+        <button id="set-reminder">Set Reminder</button>
+        <ul id="reminder-list"></ul>
+    </div>
+
+    <script>
+    // Complete JavaScript code here (same as previous artifact)
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        if (username) {
+            localStorage.setItem('username', username);
+            alert(`You are registered as ${username}!`);
+            displayWelcomeMessage();
+            document.getElementById('user-registration').style.display = 'none';
+            showFields();
+            initializeDashboard();
+        }
+    });
+
+    function displayWelcomeMessage() {
+        const username = localStorage.getItem('username');
+        document.getElementById('registration-message').innerText = `Welcome, ${username}!`;
+    }
+
+    function showFields() {
+        const sections = [
+            'bmi-calculator', 
+            'goal-setting', 
+            'weight-tracker', 
+            'health-tips', 
+            'diet-exercise-recommendations', 
+            'reminders'
+        ];
+        
+        sections.forEach(sectionId => {
+            document.getElementById(sectionId).style.display = 'block';
+        });
+    }
+
+    function initializeDashboard() {
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('registration-message').innerText = `Welcome back, ${username}!`;
+            document.getElementById('logout').style.display = 'block';
+            loadUserData();
+        }
+    }
+
+    function loadUserData() {
+        // BMI History
+        const bmiHistory = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+        const bmiHistoryList = document.getElementById('bmi-history');
+        bmiHistoryList.innerHTML = '';
+        bmiHistory.forEach(entry => {
+            const li = document.createElement('li');
+            li.innerText = `Date: ${entry.date}, BMI: ${entry.bmi}`;
+            bmiHistoryList.appendChild(li);
+        });
+
+        // Weight History
+        const weightHistory = JSON.parse(localStorage.getItem('weightHistory')) || [];
+        const weightHistoryList = document.getElementById('weight-history');
+        weightHistoryList.innerHTML = '';
+        weightHistory.forEach(weight => {
+            const li = document.createElement('li');
+            li.innerText = `Logged Weight: ${weight} kg`;
+            weightHistoryList.appendChild(li);
+        });
+
+        // Reminders
+        const reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+        const reminderList = document.getElementById('reminder-list');
+        reminderList.innerHTML = '';
+        reminders.forEach(reminder => {
+            const li = document.createElement('li');
+            li.innerText = reminder;
+            reminderList.appendChild(li);
+        });
+
+        // Health Goal
+        const healthGoal = JSON.parse(localStorage.getItem('healthGoal'));
+        const goalMessage = document.getElementById('goal-message');
+        if (healthGoal) {
+            goalMessage.innerHTML = `
+                <p>Goal Type: ${healthGoal.type}</p>
+                <p>Target Weight: ${healthGoal.weight} kg</p>
+                <p>Deadline: ${healthGoal.deadline}</p>
+            `;
+        }
+
+        // Generate initial tips
+        generateHealthTip();
+        generateDietRecommendation();
+    }
+
+    const healthTips = [
+        "Stay hydrated by drinking at least 8 glasses of water a day.",
+        "Incorporate a variety of fruits and vegetables into your diet.",
+        "Aim for at least 30 minutes of physical activity most days of the week.",
+        "Get enough sleep; aim for 7-9 hours per night.",
+        "Practice mindfulness or meditation to reduce stress."
+    ];
+
+    const dietRecommendations = [
+        "Include lean proteins like chicken, fish, and legumes in your meals.",
+        "Choose whole grains over refined grains.",
+        "Limit added sugars and saturated fats.",
+        "Plan your meals ahead to avoid unhealthy choices.",
+        "Snack on nuts, fruits, or yogurt instead of chips or candy."
+    ];
+
+    function generateHealthTip() {
+        const randomTip = healthTips[Math.floor(Math.random() * healthTips.length)];
+        document.getElementById('tips').innerText = randomTip;
+    }
+
+    function generateDietRecommendation() {
+        const randomRecommendation = dietRecommendations[Math.floor(Math.random() * dietRecommendations.length)];
+        document.getElementById('diet-recommendation').innerText = randomRecommendation;
+    }
+
+    document.getElementById('refresh-tips').addEventListener('click', generateHealthTip);
+    document.getElementById('refresh-recommendation').addEventListener('click', generateDietRecommendation);
+
+    document.getElementById('set-goal').addEventListener('click', function() {
+        const goalType = document.getElementById('goal-type').value;
+        const goalWeight = document.getElementById('goal-weight').value;
+        const goalDeadline = document.getElementById('goal-deadline').value;
+        
+        if (goalType && goalWeight && goalDeadline) {
+            const healthGoal = {
+                type: goalType,
+                weight: goalWeight,
+                deadline: goalDeadline
+            };
+            
+            localStorage.setItem('healthGoal', JSON.stringify(healthGoal));
+            
+            document.getElementById('goal-message').innerHTML = `
+                <p>Goal Type: ${healthGoal.type}</p>
+                <p>Target Weight: ${healthGoal.weight} kg</p>
+                <p>Deadline: ${healthGoal.deadline}</p>
+            `;
+            
+            // Reset form
+            document.getElementById('goal-type').selectedIndex = 0;
+            document.getElementById('goal-weight').value = '';
+            document.getElementById('goal-deadline').value = '';
+        } else {
+            alert('Please fill in all goal details.');
+        }
+    });
+
+    document.getElementById('bmi-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        
+        if (height > 0 && weight > 0) {
+            const bmi = (weight / (height * height)).toFixed(2);
+            document.getElementById('result').innerText = `Your BMI is: ${bmi}`;
+            document.getElementById('category').innerText = getBMICategory(bmi);
+            saveBMIDetails(bmi);
+        } else {
+            alert('Please enter valid height and weight.');
+        }
+    });
+
+    function getBMICategory(bmi) {
+        if (bmi < 18.5) return "Category: Underweight";
+        if (bmi >= 18.5 && bmi < 24.9) return "Category: Normal weight";
+        if (bmi >= 25 && bmi < 29.9) return "Category: Overweight";
+        return "Category: Obesity";
+    }
+
+    function saveBMIDetails(bmi) {
+        const bmiHistory = JSON.parse(localStorage.getItem('bmiHistory')) || [];
+        bmiHistory.push({ 
+            date: new Date().toLocaleDateString(), 
+            bmi: bmi 
+        });
+        localStorage.setItem('bmiHistory', JSON.stringify(bmiHistory));
+        loadUserData();
+    }
+
+    document.getElementById('log-weight').addEventListener('click', function() {
+        const newWeight = parseFloat(document.getElementById('new-weight').value);
+        
+        if (newWeight && newWeight > 0) {
+            const weightHistory = JSON.parse(localStorage.getItem('weightHistory')) || [];
+            weightHistory.push(newWeight);
+            localStorage.setItem('weightHistory', JSON.stringify(weightHistory));
+            loadUserData();
+            document.getElementById('new-weight').value = '';
+        } else {
+            alert('Please enter a valid weight.');
+        }
+    });
+
+    document.getElementById('set-reminder').addEventListener('click', function() {
+        const reminder = document.getElementById('reminder-input').value.trim();
+        
+        if (reminder) {
+            const reminders = JSON.parse(localStorage.getItem('reminders')) || [];
+            reminders.push(reminder);
+            localStorage.setItem('reminders', JSON.stringify(reminders));
+            loadUserData();
+            document.getElementById('reminder-input').value = '';
+        } else {
+            alert('Please enter a reminder.');
+        }
+    });
+
+    document.getElementById('logout').addEventListener('click', function() {
+        localStorage.removeItem('username');
+        localStorage.removeItem('bmiHistory');
+        localStorage.removeItem('weightHistory');
+        localStorage.removeItem('reminders');
+        localStorage.removeItem('healthGoal');
+        alert('You have been logged out.');
+        location.reload();
+    });
+
+    window.onload = function() {
+        const username = localStorage.getItem('username');
+        if (username) {
+            document.getElementById('user-registration').style.display = 'none';
+            displayWelcomeMessage();
+            showFields();
+            initializeDashboard();
+        }
+    };
+    </script>
 </body>
 </html>
