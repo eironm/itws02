@@ -1,0 +1,110 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+    color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #ff6f61; /* Vibrant color for the title */
+}
+
+h2 {
+    color: #ff6f61; /* Consistent color for section titles */
+}
+
+h3 {
+    color: #ff6f61; /* Consistent color for sub-section titles */
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section {
+    background: white;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    margin: 5px 0;
+    padding: 10px;
+    width: calc(100% - 22px);
+    border: 2px solid #ff6f61; /* Border color */
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #feb47b; /* Focus color */
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #ff6f61; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #feb47b; /* Hover color */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+li:hover {
+    background: #ffeb3b; /* Highlight color on hover */
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+#logout {
+    background-color: #ff3d00; /* Logout button color */
+}
+
+#logout:hover {
+    background-color: #ff5722; /* Logout hover color */
+}

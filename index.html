@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health and Wellness Tracker</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <script defer src="script.js"></script> <!-- Link to your JavaScript file -->
+</head>
+<body>
+    <header>
+        <h1>Health & Wellness Tracker</h1>
+        <p>Your personal fitness companion</p>
+    </header>
+    <div class="container">
+        <button id="logout" style="display: none;">Logout</button> <!-- Logout Button -->
+        
+        <div class="section" id="user-registration">
+            <h2>User Registration</h2>
+            <form id="registration-form">
+                <input type="text" id="username" placeholder="Enter your username" required>
+                <button type="submit">Register</button>
+            </form>
+            <p id="registration-message"></p>
+        </div>
+
+        <div class="section" id="bmi-calculator" style="display: none;">
+            <h2>BMI Calculator</h2>
+            <form id="bmi-form">
+                <input type="number" id="height" placeholder="Height (m)" step="0.01" required disabled>
+                <input type="number" id="weight" placeholder="Weight (kg)" step="0.1" required disabled>
+                <button type="submit" disabled>Calculate BMI</button>
+            </form>
+            <div id="result-container">
+                <p id="result"></p>
+                <p id="category"></p>
+            </div>
+            <h3>BMI History</h3>
+            <ul id="bmi-history"></ul>
+        </div>
+
+        <div class="section" id="goal-setting" style="display: none;">
+            <h2>Set Your Health Goal</h2>
+            <input type="number" id="goal-weight" placeholder="Target Weight (kg)" disabled>
+            <button id="set-goal" disabled>Set Goal</button>
+            <p id="goal-message"></p>
+        </div>
+
+        <div class="section" id="weight-tracker" style="display: none;">
+            <h2>Weight Tracker</h2>
+            <input type="number" id="new-weight" placeholder="Log New Weight (kg)" step="0.1" disabled>
+            <button id="log-weight" disabled>Log Weight</button>
+            <ul id="weight-history"></ul>
+        </div>
+
+        <div class="section" id="health-tips" style="display: none;">
+            <h2>Health Tips</h2>
+            <p id="tips"></p>
+            <button id="refresh-tips">Get New Tip</button>
+        </div>
+
+        <div class="section" id="diet-exercise-recommendations" style="display: none;">
+            <h2>Diet and Exercise Recommendations</h2>
+            <p id="diet-recommendation"></p>
+            <button id="refresh-recommendation">Get New Recommendation</button>
+        </div>
+
+        <div class="section" id="reminders" style="display: none;">
+            <h2>Reminders</h2>
+            <input type="text" id="reminder-input" placeholder="e.g., Drink water" disabled>
+            <button id="set-reminder" disabled>Set Reminder</button>
+            <ul id="reminder-list"></ul>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 blankstuff. All rights reserved.</p>
+    </footer>
+</body>
+</html>
